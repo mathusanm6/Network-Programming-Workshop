@@ -1,4 +1,4 @@
-# Exercice 2
+# Exercise 2
 ### 1. À l’aide de la commande hostname, déterminez l’identité de votre machine (son nom, son nom de domaine et son adresse réseau (IP)).
 ```bash
 hostname
