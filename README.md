@@ -6,3 +6,4 @@ This repository features practical exercises and projects completed during Netwo
 
 ## Table of Contents
 - [CW1: Systèmes et réseaux](./CW1-Systèmes-et-réseaux/README.md)
+- [CW2: Client TCP en C](./CW2-Client-TCP-en-C/README.md)
