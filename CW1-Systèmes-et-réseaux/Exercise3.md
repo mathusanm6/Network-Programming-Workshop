@@ -18,7 +18,7 @@ daytime		13/udp
 
 ```bash
 telnet lulu 13
-Trying fdc7:9dd5:2c66:be86:4849:43ff:fe49:79bf...
+Trying fdc7:9dd5:2c66:be86:4859:43ff:fe49:79bf...
 Connected to lulu.
 Escape character is '^]'.
 Sun Feb 25 10:13:52 2024
@@ -27,7 +27,7 @@ Connection closed by foreign host.
 
 ```bash
 telnet lulu daytime
-Trying fdc7:9dd5:2c66:be86:4849:43ff:fe49:79bf...
+Trying fdc7:9dd5:2c66:be86:4859:43ff:fe49:79bf...
 Connected to lulu.
 Escape character is '^]'.
 Sun Feb 25 10:14:08 2024
