@@ -1,28 +1,18 @@
 # Exercise 2
 ### 1. À l’aide de la commande hostname, déterminez l’identité de votre machine (son nom, son nom de domaine et son adresse réseau (IP)).
-
-Host name:
 ```bash
 hostname
 lulu
 ```
 
-Full host name:
 ```bash
 hostname -f
 lulu.informatique.univ-paris-diderot.fr
 ```
 
-Domain name:
-```bash
-hostname -d
-informatique.univ-paris-diderot.fr
-```
-
-Network Address (IPv4 and IPv6)
 ```bash
 hostname -i
-fdd7:9dd5:2c66:be86:4849:43ff:fe49:79bf 192.168.71.226
+fdc7:9dd5:2c66:be86:4849:43ff:fe49:79bf 192.168.70.236
 ```
 
 ### 2. Sur votre machine, utilisez la commande ping avec les arguments suivants www.google.com puis www.laplanete.uk et www. Qu’en déduisez-vous ?
@@ -47,11 +37,11 @@ ping: cannot resolve www.laplanete.uk: Unknown host
 ```
     
 ```bash
-ping www.
+ping www
 ping: cannot resolve www: Unknown host
 ```
 
-Ping is a network utility that tests the reachability of a host on an Internet Protocol (IP) network. The name resolution failure for www.laplanete.uk and www indicates that these hosts are not reachable or do not exist.
+Ping is a network utility that tests the reachability of a host on an Internet Protocol (IP) network. It measures the round-trip time for messages sent from the originating host to a destination computer that are echoed back to the source. The name resolution failure for www.laplanete.uk and www indicates that these hosts are not reachable or do not exist.
 
 ### 3. Pourquoi la commande ping www rend-elle des résultats différents sur lulu et sur votre machine personelle ?
 
@@ -63,23 +53,22 @@ PING trotinette.informatique.univ-paris-diderot.fr (194.254.199.80) 56(84) bytes
 13 packets transmitted, 0 received, 100% packet loss, time 12287ms
 ```
 
+#### Firewall/Anti-DDoS Measures
 The server or the network it's on might be protected by firewall rules or anti-DDoS measures that block ICMP packets (which are used by the ping command). Many servers disable ping responses to protect against potential attacks or to reduce unnecessary traffic.
 
+#### NAT Gateway
 trotinette.informatique.univ-paris-diderot.fr acts like a gateway between the local network and the internet. It is a server that is used to forward packets from the local network to the internet and vice versa.
+
+#### ICMP Disabled
+The server itself might have ICMP responses disabled. Some systems are configured this way for security or administrative reasons.
 
 ### 4. En utilisant successivement les commandes host et dig, déterminez les adresses IPv4 et IPv6 de www.informatique.univ-paris-diderot.fr, puis de www.free.fr. Quels sont les noms d’hôtes associés aux adresses obtenues ?
 
 ```bash
 host www.informatique.univ-paris-diderot.fr
 www.informatique.univ-paris-diderot.fr is an alias for trotinette.informatique.univ-paris-diderot.fr.
-trotinette.informatique.univ-paris-diderot.fr has address 194.244.189.80
-trotinette.informatique.univ-paris-diderot.fr has IPv6 address 2001:650:3201:8070::80
-```
-
-```bash
-dig www.informatique.univ-paris-diderot.fr +noall +answer
-www.informatique.univ-paris-diderot.fr.	86400 IN CNAME trotinette.informatique.univ-paris-diderot.fr.
-trotinette.informatique.univ-paris-diderot.fr. 86400 IN	A 194.254.199.80
+trotinette.informatique.univ-paris-diderot.fr has address 194.254.199.80
+trotinette.informatique.univ-paris-diderot.fr has IPv6 address 2001:660:3301:8070::80
 ```
 
 ```bash
@@ -89,17 +78,30 @@ www.free.fr has IPv6 address 2a01:e0c:1::1
 ```
 
 ```bash
+dig www.informatique.univ-paris-diderot.fr +noall +answer
+www.informatique.univ-paris-diderot.fr.	86400 IN CNAME trotinette.informatique.univ-paris-diderot.fr.
+trotinette.informatique.univ-paris-diderot.fr. 86400 IN	A 194.254.199.80
+
+dig www.informatique.univ-paris-diderot.fr AAAA +noall +answer
+www.informatique.univ-paris-diderot.fr.	86400 IN CNAME trotinette.informatique.univ-paris-diderot.fr.
+trotinette.informatique.univ-paris-diderot.fr. 86400 IN	AAAA 2001:660:3301:8070::80
+```
+
+```bash
 dig www.free.fr +noall +answer
-www.free.fr.            493     IN      A       212.27.48.10
+www.free.fr.		103	IN	A	212.27.48.10
+
+dig www.free.fr AAAA +noall +answer
+www.free.fr.		371	IN	AAAA	2a01:e0c:1::1
 ```
 
 ### 5. Déterminez à l’aide des commandes host et dig comment connaître les serveurs de courrier électronique d’un réseau. Pour cela, regardez sur la page du manuel ce que permet et comment s’utilise la requête MX (pour mail exchanger). Déterminez ensuite les serveurs de courrier électronique des réseaux informatique.univ-paris-diderot.fr et free.fr.
 
 ```bash
 host -t MX informatique.univ-paris-diderot.fr
-informatique.univ-paris-diderot.fr mail is handled by 10 pokin.univ-paris7.fr.
-informatique.univ-paris-diderot.fr mail is handled by 30 shi.jussieu.fr.
-informatique.univ-paris-diderot.fr mail is handled by 10 kolev.univ-paris7.fr.
+informatique.univ-paris-diderot.fr mail is handled by 10 potemkin.univ-paris7.fr.
+informatique.univ-paris-diderot.fr mail is handled by 30 shiva.jussieu.fr.
+informatique.univ-paris-diderot.fr mail is handled by 10 korolev.univ-paris7.fr.
 ```
 
 ```bash
@@ -110,9 +112,9 @@ free.fr mail is handled by 20 mx2.free.fr.
 
 ```bash
 dig informatique.univ-paris-diderot.fr MX +noall +answer
-informatique.univ-paris-diderot.fr. 86400 IN MX	10 kolev.univ-paris7.fr.
-informatique.univ-paris-diderot.fr. 86400 IN MX	10 pokin.univ-paris7.fr.
-informatique.univ-paris-diderot.fr. 86400 IN MX	30 shi.jussieu.fr.
+informatique.univ-paris-diderot.fr. 86400 IN MX	10 korolev.univ-paris7.fr.
+informatique.univ-paris-diderot.fr. 86400 IN MX	10 potemkin.univ-paris7.fr.
+informatique.univ-paris-diderot.fr. 86400 IN MX	30 shiva.jussieu.fr.
 ```
 
 ```bash
@@ -127,9 +129,9 @@ free.fr.		9760	IN	MX	10 mx1.free.fr.
 
 ```bash
 host -t NS informatique.univ-paris-diderot.fr
-informatique.univ-paris-diderot.fr name server shi.jussieu.fr.
-informatique.univ-paris-diderot.fr name server pokin.univ-paris7.fr.
-informatique.univ-paris-diderot.fr name server kolev.univ-paris7.fr.
+informatique.univ-paris-diderot.fr name server shiva.jussieu.fr.
+informatique.univ-paris-diderot.fr name server potemkin.univ-paris7.fr.
+informatique.univ-paris-diderot.fr name server korolev.univ-paris7.fr.
 ```
 
 ```bash
@@ -141,9 +143,9 @@ free.fr name server freens1-g20.free.fr.
 
 ```bash
 dig informatique.univ-paris-diderot.fr NS +noall +answer
-informatique.univ-paris-diderot.fr. 86400 IN NS	kolev.univ-paris7.fr.
-informatique.univ-paris-diderot.fr. 86400 IN NS	pokin.univ-paris7.fr.
-informatique.univ-paris-diderot.fr. 86400 IN NS	shi.jussieu.fr.
+informatique.univ-paris-diderot.fr. 86400 IN NS	korolev.univ-paris7.fr.
+informatique.univ-paris-diderot.fr. 86400 IN NS	potemkin.univ-paris7.fr.
+informatique.univ-paris-diderot.fr. 86400 IN NS	shiva.jussieu.fr.
 ```
 
 ```bash
