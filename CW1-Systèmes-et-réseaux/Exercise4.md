@@ -87,4 +87,4 @@ Hi, LUCETTE!
 
 ```
 
-Lorsque vous utilisez des adresses différentes dans la commande SMTP `RCPT TO:` et dans l'entête `To:` d'un email, le message est acheminé à l'adresse spécifiée par `RCPT TO:`, qui détermine le routage réel du message, tandis que l'adresse dans l'entête `To:` est celle affichée au destinataire dans son client de messagerie. Cette fonctionnalité permet des usages comme l'envoi en copie cachée, mais peut aussi être exploitée de manière abusive. 
+When you use different addresses in the SMTP command `RCPT TO:` and in the `To:` header of an e-mail, the message is routed to the address specified by `RCPT TO:`, which determines the actual routing of the message, while the address in the `To:` header is the one displayed to the recipient in his e-mail client. This feature can be used for a variety of purposes, such as sending as a hidden copy, but it can also be abused. 
